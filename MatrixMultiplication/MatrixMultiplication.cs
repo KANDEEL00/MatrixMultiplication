@@ -38,44 +38,15 @@
             int[,] b = new int[n, n];
             int[,] c = new int[n, n];
             int[,] d = new int[n, n];
-            //11 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    a[i, j] = M1[i, j];
-            //12 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    b[i, j] = M1[i, j + n];
-            //21 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    c[i, j] = M1[i + n, j];
-            //22 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    d[i, j] = M1[i + n, j + n];
+
+            divideMatrix(M1, ref a, ref b, ref c, ref d, n);
 
             //divide M2 into 4 Matrices
             int[,] e = new int[n, n];
             int[,] f = new int[n, n];
             int[,] g = new int[n, n];
             int[,] h = new int[n, n];
-            //11 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    e[i, j] = M2[i, j];
-            //12 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    f[i, j] = M2[i, j + n];
-            //21 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    g[i, j] = M2[i + n, j];
-            //22 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    h[i, j] = M2[i + n, j + n];
+            divideMatrix(M2, ref e, ref f, ref g, ref h, n);
 
             ////create 4 parts of resresult Matrix M3
             //int[,] r = add(MatrixMultiply(a, e, n), MatrixMultiply(b, g, n), n);
@@ -125,37 +96,17 @@
             /// t = M3_21
             /// u = M3_22
             /// 
-
             //int[,] z = new int[n, n];
             //for (int i = 0; i < n; i++)
             //    for (int j = 0; j < n; j++)
             //        z[i, j] = 0;
-
             int[,] r = add(add(P5, P6, n), sub(P4, P2, n), n);
             int[,] s = add(P1, P2, n);
             int[,] t = add(P3, P4, n);
             int[,] u = sub(sub(add(P5, P1, n), P3, n), P7, n);
 
-
             //assemble result Matrix M3
-
-            //11 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    M3[i, j] = r[i, j];
-            //12 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    M3[i, j + n] = s[i, j];
-
-            //21 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    M3[i + n, j] = t[i, j];
-            //22 quarter
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    M3[i + n, j + n] = u[i, j];
+            assembleMatrix(ref M3, r, s, t, u, n);
 
             return M3;
         }
@@ -175,6 +126,46 @@
                 for (int j = 0; j < N; j++)
                     M3[i, j] = M1[i, j] - M2[i, j];
             return M3;
+        }
+
+        static public void divideMatrix(int[,] M, ref int[,] a, ref int[,] b, ref int[,] c, ref int[,] d, int n)
+        {
+            //11 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    a[i, j] = M[i, j];
+            //12 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    b[i, j] = M[i, j + n];
+            //21 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    c[i, j] = M[i + n, j];
+            //22 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    d[i, j] = M[i + n, j + n];
+        }
+
+        static public void assembleMatrix(ref int[,] M, int[,] r, int[,] s, int[,] t, int[,] u, int n)
+        {
+            //11 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M[i, j] = r[i, j];
+            //12 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M[i, j + n] = s[i, j];
+            //21 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M[i + n, j] = t[i, j];
+            //22 quarter
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M[i + n, j + n] = u[i, j];
         }
 
         #endregion
