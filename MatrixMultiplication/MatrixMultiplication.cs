@@ -77,43 +77,43 @@
                 for (int j = 0; j < n; j++)
                     h[i, j] = M2[i + n, j + n];
 
-            //create 4 parts of resresult Matrix M3
-            int[,] r = add(MatrixMultiply(a, e, n), MatrixMultiply(b, g, n), n);
-            int[,] s = add(MatrixMultiply(a, f, n), MatrixMultiply(b, h, n), n);
-            int[,] t = add(MatrixMultiply(c, e, n), MatrixMultiply(d, g, n), n);
-            int[,] u = add(MatrixMultiply(c, f, n), MatrixMultiply(d, h, n), n);
+            ////create 4 parts of resresult Matrix M3
+            //int[,] r = add(MatrixMultiply(a, e, n), MatrixMultiply(b, g, n), n);
+            //int[,] s = add(MatrixMultiply(a, f, n), MatrixMultiply(b, h, n), n);
+            //int[,] t = add(MatrixMultiply(c, e, n), MatrixMultiply(d, g, n), n);
+            //int[,] u = add(MatrixMultiply(c, f, n), MatrixMultiply(d, h, n), n);
 
-            ////////////////////////////////////////////////////////////////////
-            ///// a = M1_11
-            ///// b = M1_12
-            ///// c = M1_21
-            ///// d = M1_22
-            ///// -
-            ///// e = M2_11
-            ///// f = M2_12
-            ///// g = M2_21
-            ///// h = M2_22
-            ///// 
+            //////////////////////////////////////////////////////////////////
+            /// a = M1_11
+            /// b = M1_12
+            /// c = M1_21
+            /// d = M1_22
+            /// -
+            /// e = M2_11
+            /// f = M2_12
+            /// g = M2_21
+            /// h = M2_22
+            /// 
 
-            //int[,] P1 = MatrixMultiply(a, sub(f, h, n), n);
-            //int[,] P2 = MatrixMultiply(add(a, b, n), h, n);
-            //int[,] P3 = MatrixMultiply(add(c, d, n), e, n);
-            //int[,] P4 = MatrixMultiply(d, sub(g, e, n), n);
-            //int[,] P5 = MatrixMultiply(add(a, d, n), add(e, h, n), n);
-            //int[,] P6 = MatrixMultiply(sub(b, d, n), add(g, h, n), n);
-            //int[,] P7 = MatrixMultiply(sub(a, c, n), add(e, f, n), n);
+            int[,] P1 = MatrixMultiply(a, sub(f, h, n), n);
+            int[,] P2 = MatrixMultiply(add(a, b, n), h, n);
+            int[,] P3 = MatrixMultiply(add(c, d, n), e, n);
+            int[,] P4 = MatrixMultiply(d, sub(g, e, n), n);
+            int[,] P5 = MatrixMultiply(add(a, d, n), add(e, h, n), n);
+            int[,] P6 = MatrixMultiply(sub(b, d, n), add(g, h, n), n);
+            int[,] P7 = MatrixMultiply(sub(a, c, n), add(e, f, n), n);
 
-            ///// -
-            ///// r = M3_11
-            ///// s = M3_12
-            ///// t = M3_21
-            ///// u = M3_22
-            ///// 
+            /// -
+            /// r = M3_11
+            /// s = M3_12
+            /// t = M3_21
+            /// u = M3_22
+            /// 
 
-            //int[,] r = sub(add(P5, P4, n), add(P2, P6, n), n);
-            //int[,] s = add(P1, P2, n);
-            //int[,] t = add(P3, P4, n);
-            //int[,] u = sub(add(P5, P1, n), sub(P3, P7, n), n);
+            int[,] r = sub(add(P5, P4, n), add(P2, P6, n), n);
+            int[,] s = add(P1, P2, n);
+            int[,] t = add(P3, P4, n);
+            int[,] u = sub(add(P5, P1, n), sub(P3, P7, n), n);
 
 
             //assemble result Matrix M3
