@@ -103,6 +103,22 @@
             int[,] P6 = MatrixMultiply(sub(b, d, n), add(g, h, n), n);
             int[,] P7 = MatrixMultiply(sub(a, c, n), add(e, f, n), n);
 
+            //int[,] P1 = new int[n, n];
+            //int[,] P2 = new int[n, n];
+            //int[,] P3 = new int[n, n];
+            //int[,] P4 = new int[n, n];
+            //int[,] P5 = new int[n, n];
+            //int[,] P6 = new int[n, n];
+            //int[,] P7 = new int[n, n];
+
+            //Parallel.Invoke(() => P1 = MatrixMultiply(a, sub(f, h, n), n),
+            //                () => P2 = MatrixMultiply(add(a, b, n), h, n),
+            //                () => P3 = MatrixMultiply(add(c, d, n), e, n),
+            //                () => P4 = MatrixMultiply(d, sub(g, e, n), n),
+            //                () => P5 = MatrixMultiply(add(a, d, n), add(e, h, n), n),
+            //                () => P6 = MatrixMultiply(sub(b, d, n), add(g, h, n), n),
+            //                () => P7 = MatrixMultiply(sub(a, c, n), add(e, f, n), n));
+
             /// -
             /// r = M3_11
             /// s = M3_12
@@ -110,10 +126,15 @@
             /// u = M3_22
             /// 
 
-            int[,] r = sub(add(P5, P4, n), add(P2, P6, n), n);
+            //int[,] z = new int[n, n];
+            //for (int i = 0; i < n; i++)
+            //    for (int j = 0; j < n; j++)
+            //        z[i, j] = 0;
+
+            int[,] r = add(add(P5, P6, n), sub(P4, P2, n), n);
             int[,] s = add(P1, P2, n);
             int[,] t = add(P3, P4, n);
-            int[,] u = sub(add(P5, P1, n), sub(P3, P7, n), n);
+            int[,] u = sub(sub(add(P5, P1, n), P3, n), P7, n);
 
 
             //assemble result Matrix M3
@@ -143,24 +164,16 @@
         {
             int[,] M3 = new int[N, N];
             for (int i = 0; i < N; i++)
-            {
                 for (int j = 0; j < N; j++)
-                {
                     M3[i, j] = M1[i, j] + M2[i, j];
-                }
-            }
             return M3;
         }
         static public int[,] sub(int[,] M1, int[,] M2, int N)
         {
             int[,] M3 = new int[N, N];
             for (int i = 0; i < N; i++)
-            {
                 for (int j = 0; j < N; j++)
-                {
                     M3[i, j] = M1[i, j] - M2[i, j];
-                }
-            }
             return M3;
         }
 
