@@ -31,77 +31,83 @@
 
                 return M3;
             }
+            int n = N / 2;
 
             //divide M1 into 4 Matrices
-            int[,] M1_11 = new int[N / 2, N / 2];
-            int[,] M1_12 = new int[N / 2, N / 2];
-            int[,] M1_21 = new int[N / 2, N / 2];
-            int[,] M1_22 = new int[N / 2, N / 2];
+            int[,] M1_11 = new int[n, n];
+            int[,] M1_12 = new int[n, n];
+            int[,] M1_21 = new int[n, n];
+            int[,] M1_22 = new int[n, n];
             //11 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
                     M1_11[i, j] = M1[i, j];
             //12 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M1_12[i, j] = M1[i, j + N / 2];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M1_12[i, j] = M1[i, j + n];
             //21 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M1_21[i, j] = M1[i + N / 2, j];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M1_21[i, j] = M1[i + n, j];
             //22 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M1_22[i, j] = M1[i + N / 2, j + N / 2];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M1_22[i, j] = M1[i + n, j + n];
 
             //divide M2 into 4 Matrices
-            int[,] M2_11 = new int[N / 2, N / 2];
-            int[,] M2_12 = new int[N / 2, N / 2];
-            int[,] M2_21 = new int[N / 2, N / 2];
-            int[,] M2_22 = new int[N / 2, N / 2];
+            int[,] M2_11 = new int[n, n];
+            int[,] M2_12 = new int[n, n];
+            int[,] M2_21 = new int[n, n];
+            int[,] M2_22 = new int[n, n];
             //11 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
                     M2_11[i, j] = M2[i, j];
             //12 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M2_12[i, j] = M2[i, j + N / 2];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M2_12[i, j] = M2[i, j + n];
             //21 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M2_21[i, j] = M2[i + N / 2, j];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M2_21[i, j] = M2[i + n, j];
             //22 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M2_22[i, j] = M2[i + N / 2, j + N / 2];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M2_22[i, j] = M2[i + n, j + n];
 
             //create 4 parts of resresult Matrix M3
-            int[,] M3_11 = add(MatrixMultiply(M1_11, M2_11, N / 2), MatrixMultiply(M1_12, M2_21, N / 2), N / 2);
-            int[,] M3_12 = add(MatrixMultiply(M1_11, M2_12, N / 2), MatrixMultiply(M1_12, M2_22, N / 2), N / 2);
-            int[,] M3_21 = add(MatrixMultiply(M1_21, M2_11, N / 2), MatrixMultiply(M1_22, M2_21, N / 2), N / 2);
-            int[,] M3_22 = add(MatrixMultiply(M1_21, M2_12, N / 2), MatrixMultiply(M1_22, M2_22, N / 2), N / 2);
+            int[,] M3_11 = add(MatrixMultiply(M1_11, M2_11, n), MatrixMultiply(M1_12, M2_21, n), n);
+            int[,] M3_12 = add(MatrixMultiply(M1_11, M2_12, n), MatrixMultiply(M1_12, M2_22, n), n);
+            int[,] M3_21 = add(MatrixMultiply(M1_21, M2_11, n), MatrixMultiply(M1_22, M2_21, n), n);
+            int[,] M3_22 = add(MatrixMultiply(M1_21, M2_12, n), MatrixMultiply(M1_22, M2_22, n), n);
+
+            //int[,] M3_11 = sub(add(P5, P4, n), add(P2, P6, n), n);
+            //int[,] M3_12 = add(P1, P2, n);
+            //int[,] M3_21 = add(P3, P4, n);
+            //int[,] M3_22 = sub(add(P5, P1, n), sub(P3, P7, n));
 
 
             //assemble result Matrix M3
 
             //11 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
                     M3[i, j] = M3_11[i, j];
             //12 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M3[i, j + N / 2] = M3_12[i, j];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M3[i, j + n] = M3_12[i, j];
 
             //21 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M3[i + N / 2, j] = M3_21[i, j];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M3[i + n, j] = M3_21[i, j];
             //22 quarter
-            for (int i = 0; i < N / 2; i++)
-                for (int j = 0; j < N / 2; j++)
-                    M3[i + N / 2, j + N / 2] = M3_22[i, j];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    M3[i + n, j + n] = M3_22[i, j];
 
             return M3;
         }
