@@ -78,15 +78,36 @@
                     M2_22[i, j] = M2[i + n, j + n];
 
             //create 4 parts of resresult Matrix M3
-            int[,] M3_11 = add(MatrixMultiply(M1_11, M2_11, n), MatrixMultiply(M1_12, M2_21, n), n);
-            int[,] M3_12 = add(MatrixMultiply(M1_11, M2_12, n), MatrixMultiply(M1_12, M2_22, n), n);
-            int[,] M3_21 = add(MatrixMultiply(M1_21, M2_11, n), MatrixMultiply(M1_22, M2_21, n), n);
-            int[,] M3_22 = add(MatrixMultiply(M1_21, M2_12, n), MatrixMultiply(M1_22, M2_22, n), n);
+            //int[,] M3_11 = add(MatrixMultiply(M1_11, M2_11, n), MatrixMultiply(M1_12, M2_21, n), n);
+            //int[,] M3_12 = add(MatrixMultiply(M1_11, M2_12, n), MatrixMultiply(M1_12, M2_22, n), n);
+            //int[,] M3_21 = add(MatrixMultiply(M1_21, M2_11, n), MatrixMultiply(M1_22, M2_21, n), n);
+            //int[,] M3_22 = add(MatrixMultiply(M1_21, M2_12, n), MatrixMultiply(M1_22, M2_22, n), n);
 
-            //int[,] M3_11 = sub(add(P5, P4, n), add(P2, P6, n), n);
-            //int[,] M3_12 = add(P1, P2, n);
-            //int[,] M3_21 = add(P3, P4, n);
-            //int[,] M3_22 = sub(add(P5, P1, n), sub(P3, P7, n));
+            //////////////////////////////////////////////////////////////////
+            /// a = M1_11
+            /// b = M1_12
+            /// c = M1_21
+            /// d = M1_22
+            /// -
+            /// e = M2_11
+            /// f = M2_12
+            /// g = M2_21
+            /// h = M2_22
+            /// 
+
+            int[,] P1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n);
+            int[,] P2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n);
+            int[,] P3 = MatrixMultiply(add(M1_21, M1_22, n), M2_11, n);
+            int[,] P4 = MatrixMultiply(M1_22, sub(M2_21, M2_11, n), n);
+            int[,] P5 = MatrixMultiply(add(M1_11, M1_22, n), add(M2_11, M2_22, n), n);
+            int[,] P6 = MatrixMultiply(sub(M1_12, M1_22, n), add(M2_21, M2_22, n), n);
+            int[,] P7 = MatrixMultiply(sub(M1_11, M1_21, n), add(M2_11, M2_12, n), n);
+
+
+            int[,] M3_11 = sub(add(P5, P4, n), add(P2, P6, n), n);
+            int[,] M3_12 = add(P1, P2, n);
+            int[,] M3_21 = add(P3, P4, n);
+            int[,] M3_22 = sub(add(P5, P1, n), sub(P3, P7, n), n);
 
 
             //assemble result Matrix M3
