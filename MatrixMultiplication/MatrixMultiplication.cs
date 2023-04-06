@@ -31,48 +31,49 @@
 
                 return M3;
             }
-            int n = N / 2;
-
-            //////////////////////////////////////////////////////////////////
-            /// a = M1_11
-            /// b = M1_12
-            /// c = M1_21
-            /// d = M1_22
-            /// -
-            /// e = M2_11
-            /// f = M2_12
-            /// g = M2_21
-            /// h = M2_22
-            /// 
-
-            //divide M1 into 4 Matrices
-            int[,] a = new int[n, n];
-            int[,] b = new int[n, n];
-            int[,] c = new int[n, n];
-            int[,] d = new int[n, n];
-            divideMatrix(M1, ref a, ref b, ref c, ref d, n);
-            //divide M2 into 4 Matrices
-            int[,] e = new int[n, n];
-            int[,] f = new int[n, n];
-            int[,] g = new int[n, n];
-            int[,] h = new int[n, n];
-            divideMatrix(M2, ref e, ref f, ref g, ref h, n);
-            //result 
-            int[,] r = new int[n, n];
-            int[,] s = new int[n, n];
-            int[,] t = new int[n, n];
-            int[,] u = new int[n, n];
-
-            if (N <= 8)
+            else if (N <= 64)
             {
-                //create 4 parts of resresult Matrix M3 (brute force)
-                r = add(MatrixMultiply(a, e, n), MatrixMultiply(b, g, n), n);
-                s = add(MatrixMultiply(a, f, n), MatrixMultiply(b, h, n), n);
-                t = add(MatrixMultiply(c, e, n), MatrixMultiply(d, g, n), n);
-                u = add(MatrixMultiply(c, f, n), MatrixMultiply(d, h, n), n);
+                for (int i = 0; i < N; i++)
+                {
+                    for (int j = 0; j < N; j++)
+                    {
+                        for (int k = 0; k < N; k++)
+                        {
+                            M3[i, j] += M1[i, k] * M2[k, j];
+                        }
+                    }
+                }
+
             }
             else
             {
+                int n = N / 2;
+
+                //////////////////////////////////////////////////////////////////
+                /// a = M1_11
+                /// b = M1_12
+                /// c = M1_21
+                /// d = M1_22
+                /// -
+                /// e = M2_11
+                /// f = M2_12
+                /// g = M2_21
+                /// h = M2_22
+                /// 
+
+                //divide M1 into 4 Matrices
+                int[,] a = new int[n, n];
+                int[,] b = new int[n, n];
+                int[,] c = new int[n, n];
+                int[,] d = new int[n, n];
+                divideMatrix(M1, ref a, ref b, ref c, ref d, n);
+                //divide M2 into 4 Matrices
+                int[,] e = new int[n, n];
+                int[,] f = new int[n, n];
+                int[,] g = new int[n, n];
+                int[,] h = new int[n, n];
+                divideMatrix(M2, ref e, ref f, ref g, ref h, n);
+
                 int[,] P1 = MatrixMultiply(a, sub(f, h, n), n);
                 int[,] P2 = MatrixMultiply(add(a, b, n), h, n);
                 int[,] P3 = MatrixMultiply(add(c, d, n), e, n);
@@ -86,14 +87,16 @@
                 /// t = M3_21
                 /// u = M3_22
                 /// 
-                r = add(add(P5, P6, n), sub(P4, P2, n), n);
-                s = add(P1, P2, n);
-                t = add(P3, P4, n);
-                u = sub(add(P5, P1, n), add(P3, P7, n), n);
-            }
-            //assemble result Matrix M3
-            assembleMatrix(ref M3, r, s, t, u, n);
+                //result 
+                int[,] r = add(add(P5, P6, n), sub(P4, P2, n), n);
+                int[,] s = add(P1, P2, n);
+                int[,] t = add(P3, P4, n);
+                int[,] u = sub(add(P5, P1, n), add(P3, P7, n), n);
 
+                //assemble result Matrix M3
+                assembleMatrix(ref M3, r, s, t, u, n);
+
+            }
             return M3;
         }
 
