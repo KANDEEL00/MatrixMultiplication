@@ -63,6 +63,21 @@ namespace Problem
                 int[,] M2_22 = new int[n, n];
                 divideMatrix(M2, ref M2_11, ref M2_12, ref M2_21, ref M2_22, n);
 
+                //for (int i = 0; i < n; i++)
+                //    for (int j = 0; j < n; j++)
+                //    {
+                //        M1_11[i, j] = M1[i, j];
+                //        M1_12[i, j] = M1[i, j + n];
+                //        M1_21[i, j] = M1[i + n, j];
+                //        M1_22[i, j] = M1[i + n, j + n];
+                //        //M2
+                //        M2_11[i, j] = M2[i, j];
+                //        M2_12[i, j] = M2[i, j + n];
+                //        M2_21[i, j] = M2[i + n, j];
+                //        M2_22[i, j] = M2[i + n, j + n];
+                //    }
+
+
                 //without threading
                 //int[,] t1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n);
                 //int[,] t2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n);
@@ -111,23 +126,17 @@ namespace Problem
 
         static public int[,] add(int[,] M1, int[,] M2, int N)
         {
-            int[,] M3 = new int[N, N];
-            Parallel.For(0, N, i =>
-            {
+            for (int i = 0; i < N; i++)
                 for (int j = 0; j < N; j++)
-                    M3[i, j] = M1[i, j] + M2[i, j];
-            });
-            return M3;
+                    M1[i, j] += M2[i, j];
+            return M1;
         }
         static public int[,] sub(int[,] M1, int[,] M2, int N)
         {
-            int[,] M3 = new int[N, N];
-            Parallel.For(0, N, i =>
-            {
+            for (int i = 0; i < N; i++)
                 for (int j = 0; j < N; j++)
-                    M3[i, j] = M1[i, j] - M2[i, j];
-            });
-            return M3;
+                    M1[i, j] -= M2[i, j];
+            return M1;
         }
 
         static public void divideMatrix(int[,] M, ref int[,] a, ref int[,] b, ref int[,] c, ref int[,] d, int n)
