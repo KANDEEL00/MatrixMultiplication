@@ -50,23 +50,12 @@ namespace Problem
             else
             {
                 int n = N / 2;
-
-                //////////////////////////////////////////////////////////////////
-                /// a = M1_11
-                /// b = M1_12
-                /// c = M1_21
-                /// d = M1_22
                 //divide M1 into 4 Matrices
                 int[,] M1_11 = new int[n, n];
                 int[,] M1_12 = new int[n, n];
                 int[,] M1_21 = new int[n, n];
                 int[,] M1_22 = new int[n, n];
                 divideMatrix(M1, ref M1_11, ref M1_12, ref M1_21, ref M1_22, n);
-                /// -
-                /// e = M2_11
-                /// f = M2_12
-                /// g = M2_21
-                /// h = M2_22
                 //divide M2 into 4 Matrices
                 int[,] M2_11 = new int[n, n];
                 int[,] M2_12 = new int[n, n];
@@ -74,41 +63,47 @@ namespace Problem
                 int[,] M2_22 = new int[n, n];
                 divideMatrix(M2, ref M2_11, ref M2_12, ref M2_21, ref M2_22, n);
 
-                int[,] P1 = new int[n, n];
-                int[,] P2 = new int[n, n];
-                int[,] P3 = new int[n, n];
-                int[,] P4 = new int[n, n];
-                int[,] P5 = new int[n, n];
-                int[,] P6 = new int[n, n];
-                int[,] P7 = new int[n, n];
-                Parallel.Invoke(() => P1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n),
-                                () => P2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n),
-                                () => P3 = MatrixMultiply(add(M1_21, M1_22, n), M2_11, n),
-                                () => P4 = MatrixMultiply(M1_22, sub(M2_21, M2_11, n), n),
-                                () => P5 = MatrixMultiply(add(M1_11, M1_22, n), add(M2_11, M2_22, n), n),
-                                () => P6 = MatrixMultiply(sub(M1_12, M1_22, n), add(M2_21, M2_22, n), n),
-                                () => P7 = MatrixMultiply(sub(M1_11, M1_21, n), add(M2_11, M2_12, n), n));
-                /// r = M3_11
-                /// s = M3_12
-                /// t = M3_21
-                /// u = M3_22
-                /// 
+                //without threading
+                //int[,] t1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n);
+                //int[,] t2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n);
+                //int[,] t3 = MatrixMultiply(add(M1_21, M1_22, n), M2_11, n);
+                //int[,] t4 = MatrixMultiply(M1_22, sub(M2_21, M2_11, n), n);
+                //int[,] t5 = MatrixMultiply(add(M1_11, M1_22, n), add(M2_11, M2_22, n), n);
+                //int[,] t6 = MatrixMultiply(sub(M1_12, M1_22, n), add(M2_21, M2_22, n), n);
+                //int[,] t7 = MatrixMultiply(sub(M1_11, M1_21, n), add(M2_11, M2_12, n), n);
+                //with threading
+                int[,] t1 = new int[n, n];
+                int[,] t2 = new int[n, n];
+                int[,] t3 = new int[n, n];
+                int[,] t4 = new int[n, n];
+                int[,] t5 = new int[n, n];
+                int[,] t6 = new int[n, n];
+                int[,] t7 = new int[n, n];
+                Parallel.Invoke(() => t1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n),
+                                () => t2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n),
+                                () => t3 = MatrixMultiply(add(M1_21, M1_22, n), M2_11, n),
+                                () => t4 = MatrixMultiply(M1_22, sub(M2_21, M2_11, n), n),
+                                () => t5 = MatrixMultiply(add(M1_11, M1_22, n), add(M2_11, M2_22, n), n),
+                                () => t6 = MatrixMultiply(sub(M1_12, M1_22, n), add(M2_21, M2_22, n), n),
+                                () => t7 = MatrixMultiply(sub(M1_11, M1_21, n), add(M2_11, M2_12, n), n));
                 //result 
-                int[,] r = add(add(P5, P6, n), sub(P4, P2, n), n);
-                int[,] s = add(P1, P2, n);
-                int[,] t = add(P3, P4, n);
-                int[,] u = sub(add(P5, P1, n), add(P3, P7, n), n);
-                //int[,] r = new int[n, n];
-                //int[,] s = new int[n, n];
-                //int[,] t = new int[n, n];
-                //int[,] u = new int[n, n];
-                //System.Threading.Tasks.Parallel.Invoke(() => r = add(add(P5, P6, n), sub(P4, P2, n), n),
-                //                                       () => s = add(P1, P2, n),
-                //                                       () => t = add(P3, P4, n),
-                //                                       () => u = sub(add(P5, P1, n), add(P3, P7, n), n));
+                //without threading
+                int[,] M3_11 = add(add(t5, t6, n), sub(t4, t2, n), n);
+                int[,] M3_12 = add(t1, t2, n);
+                int[,] M3_21 = add(t3, t4, n);
+                int[,] M3_22 = sub(add(t5, t1, n), add(t3, t7, n), n);
+                //with threading
+                //int[,] M3_11 = new int[n, n];
+                //int[,] M3_12 = new int[n, n];
+                //int[,] M3_21 = new int[n, n];
+                //int[,] M3_22 = new int[n, n];
+                //System.Threading.Tasks.Parallel.Invoke(() => M3_11 = add(add(t5, t6, n), sub(t4, t2, n), n),
+                //                                       () => M3_12 = add(t1, t2, n),
+                //                                       () => M3_21 = add(t3, t4, n),
+                //                                       () => M3_22 = sub(add(t5, t1, n), add(t3, t7, n), n));
 
                 //assemble result Matrix M3
-                assembleMatrix(ref M3, r, s, t, u, n);
+                assembleMatrix(ref M3, M3_11, M3_12, M3_21, M3_22, n);
 
             }
             return M3;
@@ -117,7 +112,7 @@ namespace Problem
         static public int[,] add(int[,] M1, int[,] M2, int N)
         {
             int[,] M3 = new int[N, N];
-            Parallel.For(1, 11, i =>
+            Parallel.For(0, N, i =>
             {
                 for (int j = 0; j < N; j++)
                     M3[i, j] = M1[i, j] + M2[i, j];
@@ -127,7 +122,7 @@ namespace Problem
         static public int[,] sub(int[,] M1, int[,] M2, int N)
         {
             int[,] M3 = new int[N, N];
-            Parallel.For(1, 11, i =>
+            Parallel.For(0, N, i =>
             {
                 for (int j = 0; j < N; j++)
                     M3[i, j] = M1[i, j] - M2[i, j];
