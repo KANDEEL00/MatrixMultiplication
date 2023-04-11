@@ -83,17 +83,19 @@ namespace Problem
         }
         static public int[,] add(int[,] M1, int[,] M2, int N)
         {
+            int[,] M3 = new int[N, N];
             for (int i = 0; i < N; i++)
                 for (int j = 0; j < N; j++)
-                    M1[i, j] += M2[i, j];
-            return M1;
+                    M3[i, j] = M1[i, j] + M2[i, j];
+            return M3;
         }
         static public int[,] sub(int[,] M1, int[,] M2, int N)
         {
+            int[,] M3 = new int[N, N];
             for (int i = 0; i < N; i++)
                 for (int j = 0; j < N; j++)
-                    M1[i, j] -= M2[i, j];
-            return M1;
+                    M3[i, j] = M1[i, j] - M2[i, j];
+            return M3;
         }
         static public void divideMatrix(int[,] M, ref int[,] a, ref int[,] b, ref int[,] c, ref int[,] d, int n)
         {
