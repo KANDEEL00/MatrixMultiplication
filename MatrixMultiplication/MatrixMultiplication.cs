@@ -64,6 +64,15 @@ namespace Problem
                 int[,] t5 = new int[n, n];
                 int[,] t6 = new int[n, n];
                 int[,] t7 = new int[n, n];
+                //without threading
+                //int[,] t1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n);
+                //int[,] t2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n);
+                //int[,] t3 = MatrixMultiply(add(M1_21, M1_22, n), M2_11, n);
+                //int[,] t4 = MatrixMultiply(M1_22, sub(M2_21, M2_11, n), n);
+                //int[,] t5 = MatrixMultiply(add(M1_11, M1_22, n), add(M2_11, M2_22, n), n);
+                //int[,] t6 = MatrixMultiply(sub(M1_12, M1_22, n), add(M2_21, M2_22, n), n);
+                //int[,] t7 = MatrixMultiply(sub(M1_11, M1_21, n), add(M2_11, M2_12, n), n);
+                //with threading
                 Parallel.Invoke(() => t1 = MatrixMultiply(M1_11, sub(M2_12, M2_22, n), n),
                                 () => t2 = MatrixMultiply(add(M1_11, M1_12, n), M2_22, n),
                                 () => t3 = MatrixMultiply(add(M1_21, M1_22, n), M2_11, n),
